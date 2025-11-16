@@ -236,6 +236,47 @@ export default function Page() {
                 </div>
               </div>
             </div>
+
+            {/* 横スクロール誘導（TOP専用） */}
+            <div
+              style={{
+                position: 'absolute',
+                bottom: 90,
+                right: '-10%',
+                transform: 'translateX(-50%)',
+                padding: '10px 16px',
+                borderRadius: 999,
+                background: 'rgba(255,255,255,0.35)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.4)',
+                boxShadow: '0 4px 18px rgba(0,0,0,0.18)',
+                fontSize: 12,
+                fontWeight: 600,
+                color: '#374151',
+                letterSpacing: '0.08em',
+                animation: 'swipeGlow 2.4s ease-in-out infinite',
+                zIndex: 20,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                whiteSpace: 'nowrap',
+                pointerEvents: 'none',
+              }}
+            >
+              SWIPE
+              <span style={{ fontSize: 14 }}>→</span>
+            </div>
+
+            <style>
+              {`
+@keyframes swipeGlow {
+  0% { transform: translateX(-50%) translateY(0); opacity: 0.65; }
+  50% { transform: translateX(-50%) translateY(-4px); opacity: 1; }
+  100% { transform: translateX(-50%) translateY(0); opacity: 0.65; }
+}
+`}
+            </style>
           </section>
 
           {/* 2. DETAIL */}
