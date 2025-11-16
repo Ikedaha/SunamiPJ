@@ -16,7 +16,7 @@ const NAV_ITEMS = [
   { id: 'top', label: 'Top' },
   { id: 'info', label: 'Details' },
   { id: 'schedule', label: 'Flow' },
-  { id: 'form', label: 'Reply' },
+  { id: 'form', label: 'Contact' },
 ] as const;
 
 type NavId = (typeof NAV_ITEMS)[number]['id'];
@@ -892,7 +892,7 @@ export default function Page() {
             <div
               style={{
                 position: 'absolute',
-                top: '10%',
+                top: '13%',
                 left: '50%',
                 transform: 'translateX(-50%)',
                 width: 320,
@@ -955,7 +955,7 @@ export default function Page() {
               {/* ガラスカード：LINE で送ってもらう案内 */}
               <div
                 style={{
-                  marginTop: 90, // ← ここをしっかり下げた！（12 → 70）
+                  marginTop: 120, // ← ここをしっかり下げた！（12 → 70）
                   padding: '22px 20px 26px',
                   borderRadius: 28,
                   background: 'rgba(255, 255, 255, 0.26)',
