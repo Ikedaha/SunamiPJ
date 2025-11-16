@@ -77,9 +77,10 @@ export default function Page() {
     <main
       style={{
         width: '100vw',
-        height: '100vh',
+        height: '100dvh', // ← スマホ向けの実高さ
         overflow: 'hidden',
-        position: 'relative',
+        position: 'fixed', // ← ビューポートに固定
+        inset: 0, // ← top/right/bottom/left: 0
       }}
     >
       {/* 横スライダーコンテナ */}
@@ -1061,6 +1062,7 @@ export default function Page() {
                 <div
                   style={{
                     marginTop: 0,
+                    paddingBottom: 4,
                     fontSize: 11,
                     color: '#6b7280',
                     textAlign: 'center',
