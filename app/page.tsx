@@ -828,7 +828,7 @@ export default function Page() {
                         color: '#6b7280',
                       }}
                     >
-                      21:00―
+                      21:00-
                     </div>
                     <div>
                       <strong>解散予定</strong>
