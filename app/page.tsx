@@ -241,8 +241,8 @@ export default function Page() {
             <div
               style={{
                 position: 'absolute',
-                bottom: 90,
-                right: '-10%',
+                bottom: '10%',
+                right: '-5%',
                 transform: 'translateX(-50%)',
                 padding: '10px 16px',
                 borderRadius: 999,
