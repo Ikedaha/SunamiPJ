@@ -241,7 +241,7 @@ export default function Page() {
             <div
               style={{
                 position: 'absolute',
-                bottom: '10%',
+                top: '10%',
                 right: '-5%',
                 transform: 'translateX(-50%)',
                 padding: '10px 16px',
