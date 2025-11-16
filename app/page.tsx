@@ -988,11 +988,7 @@ export default function Page() {
                     >
                       1. アレルギー・苦手なもの
                     </span>
-                    <div>
-                      食べられない食材やお酒のNGなどがあれば
-                      <br />
-                      教えてください。
-                    </div>
+                    <div>食べられない食材があれば 教えてください。</div>
                   </li>
                   <li>
                     <span
@@ -1005,11 +1001,7 @@ export default function Page() {
                     >
                       2. 当日のご要望
                     </span>
-                    <div>
-                      ペースや体調面での配慮、
-                      <br />
-                      こうしてほしい等があればぜひ。
-                    </div>
+                    <div>ペースや体調面での配慮、ぜひお伝えください。</div>
                   </li>
                   <li>
                     <span
@@ -1022,11 +1014,7 @@ export default function Page() {
                     >
                       3. 質問・確認したいこと
                     </span>
-                    <div>
-                      服装・持ち物・その他気になることがあれば、
-                      <br />
-                      お気軽にどうぞ。
-                    </div>
+                    <div>服装・持ち物・その他、お気軽にどうぞ。</div>
                   </li>
                 </ul>
 
