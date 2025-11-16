@@ -510,7 +510,7 @@ export default function Page() {
                       集合
                     </div>
                     <div>
-                      当日<strong>15:00ごろ</strong>に角南宅までお迎え
+                      当日<strong>15:00ごろ</strong>に角南様宅までお迎え
                     </div>
                   </div>
 
