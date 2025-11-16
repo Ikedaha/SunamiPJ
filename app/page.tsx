@@ -1,16 +1,7 @@
 // app/page.tsx
 'use client';
 
-import { FormEvent, TouchEvent, useState } from 'react';
-
-const PICKUP_TIME_OPTIONS = [
-  '13:00ごろ',
-  '13:30ごろ',
-  '14:00ごろ',
-  '14:30ごろ',
-  '15:00ごろ',
-  'おまかせ',
-];
+import { TouchEvent, WheelEvent, useRef, useState } from 'react';
 
 const NAV_ITEMS = [
   { id: 'top', label: 'Top' },
@@ -23,41 +14,34 @@ type NavId = (typeof NAV_ITEMS)[number]['id'];
 
 export default function Page() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isSending, setIsSending] = useState(false);
-  const [isSent, setIsSent] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setIsSending(true);
-    setIsSent(false);
-    setError(null);
+  // ★ ホイール連打防止用のタイムスタンプ
+  const lastWheelTimeRef = useRef(0);
 
-    const formData = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(formData.entries());
+  const handleWheel = (e: WheelEvent<HTMLDivElement>) => {
+    const now = Date.now();
 
-    try {
-      const res = await fetch('/api/rsvp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+    // 連続でガンガン切り替わらないようにクールダウン
+    if (now - lastWheelTimeRef.current < 500) return;
 
-      if (!res.ok) {
-        throw new Error('送信に失敗しました。時間をおいて再度お試しください。');
-      }
+    const threshold = 20; // 微妙な揺れは無視
+    if (Math.abs(e.deltaY) < threshold) return;
 
-      setIsSent(true);
-      e.currentTarget.reset();
-    } catch (err: any) {
-      setError(err.message || 'エラーが発生しました。');
-    } finally {
-      setIsSending(false);
+    // 下方向スクロール → 次のページへ
+    if (e.deltaY > 0 && currentIndex < NAV_ITEMS.length - 1) {
+      lastWheelTimeRef.current = now;
+      setCurrentIndex((prev) => Math.min(prev + 1, NAV_ITEMS.length - 1));
     }
-  }
+
+    // 上方向スクロール → 前のページへ
+    if (e.deltaY < 0 && currentIndex > 0) {
+      lastWheelTimeRef.current = now;
+      setCurrentIndex((prev) => Math.max(prev - 1, 0));
+    }
+  };
 
   function goTo(id: NavId) {
     const idx = NAV_ITEMS.findIndex((n) => n.id === id);
@@ -103,6 +87,7 @@ export default function Page() {
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
+        onWheel={handleWheel}
         style={{
           width: '100%',
           height: '100%',
@@ -1047,7 +1032,7 @@ export default function Page() {
                 {/* LINE へのリンク（URLはあとで差し替え） */}
                 <div
                   style={{
-                    marginTop: 10,
+                    marginTop: 0,
                     display: 'flex',
                     justifyContent: 'center',
                   }}
@@ -1062,20 +1047,20 @@ export default function Page() {
                       borderRadius: 999,
                       border: '1px solid rgba(15,23,42,0.12)',
                       background: 'rgba(255,255,255,0.9)',
-                      fontSize: 14,
+                      fontSize: 11,
                       fontWeight: 600,
                       color: '#111827',
                       textDecoration: 'none',
                       boxShadow: '0 4px 14px rgba(148,163,184,0.6)',
                     }}
                   >
-                    LINEで送る
+                    PUSH TO CONTACT
                   </a>
                 </div>
 
                 <div
                   style={{
-                    marginTop: 4,
+                    marginTop: 0,
                     fontSize: 11,
                     color: '#6b7280',
                     textAlign: 'center',
