@@ -15,7 +15,7 @@ const PICKUP_TIME_OPTIONS = [
 const NAV_ITEMS = [
   { id: 'top', label: 'Top' },
   { id: 'info', label: 'Details' },
-  { id: 'schedule', label: 'Schedule' },
+  { id: 'schedule', label: 'Flow' },
   { id: 'form', label: 'Reply' },
 ] as const;
 
@@ -123,24 +123,27 @@ export default function Page() {
             style={{
               width: '100vw',
               height: '100vh',
-              padding: '72px 20px 96px',
+              padding: '56px 20px 80px',
               boxSizing: 'border-box',
               position: 'relative',
+              overflow: 'hidden',
             }}
           >
-            {/* 背景の柔らかいグラデーションレイヤー */}
+            {/* 背景グラデーション（他ページとつながるベース） */}
             <div
               style={{
                 position: 'absolute',
-                top: '-15%',
+                top: '-18%',
                 left: '-30%',
-                width: '80%',
-                height: '45%',
-                background: 'linear-gradient(135deg, rgba(193,230,235,0.9), rgba(244,196,207,0.9))',
-                transform: 'rotate(-12deg)',
-                borderRadius: 60,
-                opacity: 0.7,
-                filter: 'blur(1px)',
+                width: '85%',
+                height: '50%',
+                background:
+                  'linear-gradient(135deg, rgba(193,230,235,0.85), rgba(244,196,207,0.85))',
+                transform: 'rotate(-14deg)',
+                borderRadius: 70,
+                opacity: 0.6,
+                filter: 'blur(2px)',
+                zIndex: 0,
               }}
             />
             <div
@@ -152,10 +155,32 @@ export default function Page() {
                 height: 260,
                 background: 'radial-gradient(circle at 20% 20%, #fdf2ff, #bfdbfe)',
                 borderRadius: '60% 40% 55% 45%',
-                opacity: 0.6,
+                opacity: 0.5,
+                zIndex: 0,
               }}
             />
 
+            {/* ビーチ画像（中心はしっかり、外側フェードアウト） */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: 'url("/images/beach.png")',
+                backgroundSize: '120% 120%',
+                backgroundPosition: 'center 75%',
+                opacity: 0.95,
+                zIndex: 1,
+
+                WebkitMaskImage:
+                  'radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 38%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%)',
+                maskImage:
+                  'radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 38%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%)',
+                WebkitMaskRepeat: 'no-repeat',
+                maskRepeat: 'no-repeat',
+              }}
+            />
+
+            {/* タイトルブロック（ガラスカード） */}
             <div
               style={{
                 position: 'relative',
@@ -164,114 +189,70 @@ export default function Page() {
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'space-between',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                zIndex: 3,
               }}
             >
-              <div>
+              <div
+                style={{
+                  marginBottom: 8,
+                  fontSize: 12,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  whiteSpace: 'nowrap',
+                  color: '#374151',
+                  opacity: 0.9,
+                }}
+              >
+                SUNAMI'S FRIENDS PRESENTS
+              </div>
+              <div
+                style={{
+                  padding: '18px 28px',
+                  borderRadius: 28,
+                  background: 'rgba(255, 255, 255, 0.28)',
+                  backdropFilter: 'blur(18px)',
+                  WebkitBackdropFilter: 'blur(18px)',
+                  border: '1px solid rgba(255, 255, 255, 0.35)',
+                  boxShadow: '0 8px 28px rgba(0,0,0,0.15)',
+                  textAlign: 'center',
+                  color: '#0f172a',
+                  width: 'fit-content',
+                  margin: '0 auto',
+                }}
+              >
                 <div
                   style={{
-                    fontSize: 11,
-                    letterSpacing: '0.24em',
+                    fontSize: 26,
+                    fontWeight: 700,
+                    letterSpacing: '0.04em',
                     textTransform: 'uppercase',
-                    color: '#6B7280',
-                    marginBottom: 12,
-                  }}
-                >
-                  SUNAMI WEDDING GATHERING
-                </div>
-                <h1
-                  style={{
-                    margin: 0,
-                    fontSize: 34,
-                    lineHeight: 1.15,
-                    color: '#0f172a',
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
+                    whiteSpace: 'nowrap',
                     fontFamily: 'Georgia, "Times New Roman", "游明朝", "Yu Mincho", serif',
                   }}
                 >
-                  Sunami Wedding
-                  <br />
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      marginTop: 4,
-                      fontSize: 26,
-                      letterSpacing: '0.08em',
-                    }}
-                  >
-                    Celebration
-                  </span>
-                </h1>
-                <p
-                  style={{
-                    marginTop: 16,
-                    fontSize: 14,
-                    lineHeight: 1.8,
-                    color: '#4b5563',
-                  }}
-                >
-                  ひゆう・ともかの結婚を祝って、
-                  <br />
-                  いつもの5人で集まる会を予定しています。
-                </p>
-                <div
-                  style={{
-                    marginTop: 18,
-                    fontSize: 16,
-                    fontWeight: 600,
-                    color: '#111827',
-                  }}
-                >
-                  2025.11.22 Sat
+                  HIYUU & TOMOKA
                 </div>
-              </div>
-
-              {/* 中央〜中段にかけて、写真を曲線で重ねる */}
-              <div
-                style={{
-                  position: 'relative',
-                  marginTop: 32,
-                  height: 230,
-                }}
-              >
-                {/* 大きいビーチの有機的なブロブ */}
                 <div
                   style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: 10,
-                    width: '78%',
-                    height: '78%',
-                    backgroundImage: 'url("/images/beach.png")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    borderRadius: '60% 40% 55% 45%',
-                    boxShadow: '0 18px 45px rgba(15,23,42,0.45)',
-                    transform: 'rotate(-4deg)',
+                    marginTop: 8,
+                    fontSize: 12,
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    whiteSpace: 'nowrap',
+                    color: '#374151',
+                    opacity: 0.9,
                   }}
-                />
-                {/* 手前のチューリップ円 */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    right: 0,
-                    bottom: 0,
-                    width: 96,
-                    height: 96,
-                    borderRadius: '50%',
-                    backgroundImage: 'url("/images/tulips.png")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    boxShadow: '0 16px 32px rgba(15,23,42,0.45)',
-                    border: '3px solid #ffffff',
-                  }}
-                />
+                >
+                  WEDDING SELEBLATION
+                </div>
               </div>
             </div>
           </section>
 
-          {/* 2. 案内 */}
+          {/* 2. DETAIL */}
           <section
             style={{
               width: '100vw',
@@ -279,40 +260,106 @@ export default function Page() {
               padding: '72px 20px 96px',
               boxSizing: 'border-box',
               position: 'relative',
+              overflow: 'visible',
             }}
           >
-            {/* 背景ブロブ */}
+            {/* 背景のグラデ（このセクション専用） */}
             <div
               style={{
                 position: 'absolute',
-                top: '16%',
-                right: '-18%',
-                width: 260,
-                height: 260,
-                backgroundImage: 'url("/images/nanohana.png")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '45% 55% 60% 40%',
-                opacity: 0.9,
-                filter: 'brightness(1.1)',
+                top: '-16%',
+                right: '-22%',
+                width: '70%',
+                height: '50%',
+                background:
+                  'radial-gradient(circle at 0% 0%, rgba(254,249,195,0.8), rgba(252,231,243,0.8))',
+                borderRadius: 80,
+                opacity: 0.7,
+                filter: 'blur(2px)',
+                zIndex: 0,
               }}
             />
-            {/* 花びらハートの小さめブロブ */}
             <div
               style={{
                 position: 'absolute',
-                left: '-6%',
-                bottom: '16%',
-                width: 130,
-                height: 130,
-                backgroundImage: 'url("/images/petals-heart.png")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '50% 50% 40% 60%',
-                boxShadow: '0 12px 28px rgba(15,23,42,0.45)',
+                bottom: '-18%',
+                left: '-5%',
+                width: '65%',
+                height: '45%',
+                background:
+                  'radial-gradient(circle at 100% 100%, rgba(191,219,254,0.9), rgba(248,250,252,0.9))',
+                borderRadius: 80,
+                opacity: 0.5,
+                zIndex: 0,
               }}
             />
 
+            {/* 浮いている写真たち（カードに少しかぶる位置） */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '10%', // タイトルより下・カード上辺あたり
+                right: '0%',
+                width: 140,
+                height: 140,
+                borderRadius: '40% 60% 55% 45%',
+                backgroundImage: 'url("/images/hero-couple.png")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                boxShadow: '0 14px 30px rgba(15,23,42,0.45)',
+                zIndex: 1,
+              }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '14%',
+                left: '6%',
+                width: 200,
+                height: 200,
+                borderRadius: '50% 40% 60% 40%',
+                backgroundImage: 'url("/images/petals-heart.png")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                boxShadow: '0 14px 30px rgba(15,23,42,0.45)',
+                zIndex: 1,
+              }}
+            />
+            {/* 追加の写真（ミラー＆ロビー） */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '20%',
+                left: '4%',
+                width: 150,
+                height: 150,
+                borderRadius: '52% 48% 58% 42%',
+                backgroundImage: 'url("/images/nanohana.png")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                boxShadow: '0 12px 26px rgba(15,23,42,0.45)',
+                opacity: 0.95,
+                zIndex: 1,
+              }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '-1%',
+                right: '-4%',
+                width: 200,
+                height: 150,
+                borderRadius: '46% 54% 52% 48%',
+                backgroundImage: 'url("/images/hotel-lobby.png")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                boxShadow: '0 12px 26px rgba(15,23,42,0.5)',
+                opacity: 0.95,
+                zIndex: 1,
+              }}
+            />
+
+            {/* コンテンツ本体 */}
             <div
               style={{
                 position: 'relative',
@@ -322,55 +369,155 @@ export default function Page() {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
+                zIndex: 2,
               }}
             >
-              <div
+              {/* タイトル（カード外・大きめ） */}
+              <header
                 style={{
-                  background: 'rgba(255,255,255,0.92)',
-                  borderRadius: 24,
-                  padding: '18px 16px',
-                  boxShadow: '0 12px 30px rgba(148,163,184,0.7)',
+                  marginBottom: 20,
+                  textAlign: 'left',
                 }}
               >
+                <div
+                  style={{
+                    fontSize: 16,
+                    letterSpacing: '0.01em',
+                    textTransform: 'uppercase',
+                    color: '#6B7280',
+                    marginBottom: -4,
+                  }}
+                >
+                  ご案内
+                </div>
                 <h2
                   style={{
                     margin: 0,
-                    fontSize: 20,
+                    fontSize: 40,
+                    letterSpacing: '0.01em',
                     fontWeight: 700,
                     color: '#0f172a',
+                    fontFamily: 'Georgia, "Times New Roman", "游明朝", "Yu Mincho", serif',
                   }}
                 >
-                  Party Details
+                  DETAILS
                 </h2>
-                <p
+              </header>
+
+              {/* 詳細カード：ガラス調＋文字は濃いめで読みやすく */}
+              <div
+                style={{
+                  padding: '22px 20px 26px',
+                  borderRadius: 28,
+                  background: 'rgba(255, 255, 255, 0.26)', // さっきより少し透明寄り
+                  backdropFilter: 'blur(18px)',
+                  WebkitBackdropFilter: 'blur(18px)',
+                  border: '1px solid rgba(255,255,255,0.45)',
+                  boxShadow: '0 6px 30px rgba(0,0,0,0.18)',
+                  minHeight: 260,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 16,
+                }}
+              >
+                {/* 小ラベル */}
+                <div
                   style={{
-                    marginTop: 12,
-                    fontSize: 14,
-                    lineHeight: 1.8,
-                    color: '#4b5563',
+                    fontSize: 12,
+                    letterSpacing: '0.16em',
+                    textTransform: 'uppercase',
+                    color: '#6b7280',
+                    marginBottom: 4,
                   }}
                 >
-                  明石エリアの会場での開催を予定しています。
-                  <br />
-                  詳しい場所や集合方法は、決まり次第あらためて共有します。
-                </p>
-                <p
+                  INFORMATION
+                </div>
+
+                {/* 本文 */}
+                <div
                   style={{
-                    marginTop: 12,
-                    fontSize: 14,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 18,
+                    fontSize: 16, // ← 少し大きめ
                     lineHeight: 1.8,
-                    color: '#4b5563',
+                    color: '#111827', // ← 濃い色で読みやすく
                   }}
                 >
-                  当日は、角南の自宅までこちらからお迎えに上がります。
-                  <br />
-                  ざっくりとしたお迎えの時間帯だけ、教えてもらえたら助かります。
-                </p>
+                  {/* 日時 */}
+                  <div
+                    style={{
+                      paddingBottom: 10,
+                      borderBottom: '1px solid rgba(255,255,255,0.5)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: 13,
+                        color: '#6b7280',
+                        marginBottom: 2,
+                      }}
+                    >
+                      日時
+                    </div>
+                    <div style={{ fontWeight: 600 }}>
+                      2025年11月23日(日)
+                      {/* ※必要なら日付はここで調整 */}
+                    </div>
+                  </div>
+
+                  {/* 集合 */}
+                  <div
+                    style={{
+                      paddingBottom: 10,
+                      borderBottom: '1px solid rgba(255,255,255,0.5)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: 13,
+                        color: '#6b7280',
+                        marginBottom: 2,
+                      }}
+                    >
+                      集合
+                    </div>
+                    <div>
+                      当日<strong>15:00ごろ</strong>に角南宅までお迎え
+                    </div>
+                  </div>
+
+                  {/* 場所 */}
+                  <div>
+                    <div
+                      style={{
+                        fontSize: 13,
+                        color: '#6b7280',
+                        marginBottom: 2,
+                      }}
+                    >
+                      場所
+                    </div>
+                    <div>兵庫県内を予定</div>
+                    <div
+                      style={{
+                        marginTop: 4,
+                        fontSize: 13,
+                        color: '#6b7280',
+                      }}
+                    >
+                      ※ 詳細な会場名は、当日のお楽しみとさせてください。
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              {/* 下の余白（ナビとの距離） */}
+              <div style={{ height: 20 }} />
             </div>
           </section>
 
-          {/* 3. 当日の流れ */}
+          {/* 3. FLOW */}
           <section
             style={{
               width: '100vw',
@@ -378,40 +525,389 @@ export default function Page() {
               padding: '72px 20px 96px',
               boxSizing: 'border-box',
               position: 'relative',
+              overflow: 'visible',
             }}
           >
-            {/* 背景のサンフラワーブロブ */}
+            {/* 背景のグラデ（2ページ目とトーンを合わせる） */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '-18%',
+                left: '-24%',
+                width: '70%',
+                height: '50%',
+                background:
+                  'radial-gradient(circle at 0% 0%, rgba(191,219,254,0.9), rgba(252,231,243,0.8))',
+                borderRadius: 80,
+                opacity: 0.75,
+                filter: 'blur(2px)',
+                zIndex: 0,
+              }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '-20%',
+                right: '-18%',
+                width: '65%',
+                height: '45%',
+                background:
+                  'radial-gradient(circle at 100% 100%, rgba(252,231,243,0.9), rgba(248,250,252,0.9))',
+                borderRadius: 80,
+                opacity: 0.7,
+                zIndex: 0,
+              }}
+            />
+
+            {/* 浮いている写真たち（未使用の素材を中心に配置） */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '-2%',
+                right: '-5%',
+                width: 200,
+                height: 150,
+                borderRadius: '40% 60% 55% 45%',
+                backgroundImage: 'url("/images/pool-garden.png")', // ← 未使用のロビーのやつ
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                boxShadow: '0 14px 30px rgba(15,23,42,0.45)',
+                zIndex: 1,
+              }}
+            />
+
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '5%',
+                right: '10%', // 少しはみ出す＋次ページに続く感じ
+                width: 300,
+                height: 200,
+                borderRadius: '50% 40% 60% 40%',
+                backgroundImage: 'url("/images/wedding-papers.png")', // ← 手元アップ写真
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                boxShadow: '0 14px 30px rgba(15,23,42,0.45)',
+                zIndex: 1,
+              }}
+            />
+
+            <div
+              style={{
+                position: 'absolute',
+                top: '20%',
+                right: '55%',
+                width: 110,
+                height: 110,
+                borderRadius: '46% 54% 48% 52%',
+                backgroundImage: 'url("/images/tulips.png")', // ← 花束の未使用のやつ
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                boxShadow: '0 12px 26px rgba(15,23,42,0.4)',
+                zIndex: 1,
+              }}
+            />
+
+            {/* コンテンツ本体 */}
+            <div
+              style={{
+                position: 'relative',
+                maxWidth: 420,
+                margin: '0 auto',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                zIndex: 2,
+              }}
+            >
+              {/* タイトル（2ページ目と構成を揃える） */}
+              <header
+                style={{
+                  marginBottom: 20,
+                  textAlign: 'left',
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 16,
+                    letterSpacing: '0.01em',
+                    textTransform: 'uppercase',
+                    color: '#6B7280',
+                    marginBottom: -4,
+                  }}
+                >
+                  当日のながれ
+                </div>
+                <h2
+                  style={{
+                    margin: 0,
+                    fontSize: 40,
+                    letterSpacing: '0.01em',
+                    fontWeight: 700,
+                    color: '#0f172a',
+                    fontFamily: 'Georgia, "Times New Roman", "游明朝", "Yu Mincho", serif',
+                  }}
+                >
+                  FLOW
+                </h2>
+              </header>
+
+              {/* タイムラインカード（ガラス調・5項目ぶんの枠だけ用意） */}
+              <div
+                style={{
+                  padding: '22px 20px 26px',
+                  borderRadius: 28,
+                  background: 'rgba(255, 255, 255, 0.26)',
+                  backdropFilter: 'blur(18px)',
+                  WebkitBackdropFilter: 'blur(18px)',
+                  border: '1px solid rgba(255,255,255,0.45)',
+                  boxShadow: '0 6px 30px rgba(0,0,0,0.18)',
+                  minHeight: 260,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 14,
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 12,
+                    letterSpacing: '0.16em',
+                    textTransform: 'uppercase',
+                    color: '#6b7280',
+                    marginBottom: 4,
+                  }}
+                >
+                  SCHEDULE
+                </div>
+
+                {/* ここは後で文言をいじってもらう想定 */}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 12,
+                    fontSize: 15,
+                    lineHeight: 1.7,
+                    color: '#111827',
+                  }}
+                >
+                  {/* 1 */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: 12,
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <div
+                      style={{
+                        minWidth: 64,
+                        fontSize: 12,
+                        color: '#6b7280',
+                      }}
+                    >
+                      {/* TODO: 時間を入れる */}
+                      15:00ごろ
+                    </div>
+                    <div>
+                      <strong>角南様宅 お迎え</strong>
+                      <div
+                        style={{
+                          fontSize: 13,
+                          color: '#6b7280',
+                          marginTop: 2,
+                        }}
+                      >
+                        ご自宅でお待ちください。
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 2 */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: 12,
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <div
+                      style={{
+                        minWidth: 64,
+                        fontSize: 12,
+                        color: '#6b7280',
+                      }}
+                    >
+                      16:00ごろ
+                    </div>
+                    <div>
+                      <strong>会場着</strong>
+                      <div
+                        style={{
+                          fontSize: 13,
+                          color: '#6b7280',
+                          marginTop: 2,
+                        }}
+                      >
+                        会場まで、1時間ほどの予定です。
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 3 */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: 12,
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <div
+                      style={{
+                        minWidth: 64,
+                        fontSize: 12,
+                        color: '#6b7280',
+                      }}
+                    >
+                      16:00-
+                    </div>
+                    <div>
+                      <strong>パーティ</strong>
+                      <div
+                        style={{
+                          fontSize: 13,
+                          color: '#6b7280',
+                          marginTop: 2,
+                        }}
+                      >
+                        お酒と食事をお楽しみください。
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 4 */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: 12,
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <div
+                      style={{
+                        minWidth: 64,
+                        fontSize: 12,
+                        color: '#6b7280',
+                      }}
+                    >
+                      21:00―
+                    </div>
+                    <div>
+                      <strong>解散予定</strong>
+                    </div>
+                  </div>
+
+                  {/* 5 */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: 12,
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <div
+                      style={{
+                        minWidth: 64,
+                        fontSize: 12,
+                        color: '#6b7280',
+                      }}
+                    >
+                      22:00ごろ
+                    </div>
+                    <div>
+                      <strong>角南様宅 到着</strong>
+                      <div
+                        style={{
+                          fontSize: 13,
+                          color: '#6b7280',
+                          marginTop: 2,
+                        }}
+                      >
+                        終了時間の詳細は当日相談できればと思います。
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 下の余白（ナビとの距離） */}
+              <div style={{ height: 20 }} />
+            </div>
+          </section>
+
+          {/* 4. CONTACT */}
+          <section
+            style={{
+              width: '100vw',
+              height: '100vh',
+              padding: '72px 20px 96px',
+              boxSizing: 'border-box',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            {/* 背景グラデーション（柔らかめトーン） */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '-20%',
+                left: '-18%',
+                width: '70%',
+                height: '50%',
+                background:
+                  'radial-gradient(circle at 0% 0%, rgba(191,219,254,0.9), rgba(221,239,253,0.9))',
+                borderRadius: 80,
+                opacity: 0.85,
+                filter: 'blur(2px)',
+                zIndex: 0,
+              }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '-22%',
+                right: '-20%',
+                width: '70%',
+                height: '50%',
+                background:
+                  'radial-gradient(circle at 100% 100%, rgba(252,231,243,0.95), rgba(248,250,252,0.95))',
+                borderRadius: 80,
+                opacity: 0.8,
+                zIndex: 0,
+              }}
+            />
+
+            {/* ピックアップトラック画像を大きく */}
             <div
               style={{
                 position: 'absolute',
                 top: '10%',
-                left: '-18%',
-                width: 260,
-                height: 260,
-                backgroundImage: 'url("/images/sunflowers.png")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '55% 45% 60% 40%',
-                opacity: 0.75,
-                filter: 'brightness(1.05)',
-              }}
-            />
-            {/* 車のブロブ（右下） */}
-            <div
-              style={{
-                position: 'absolute',
-                right: '-10%',
-                bottom: '12%',
-                width: 180,
-                height: 140,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 320,
+                height: 220,
                 backgroundImage: 'url("/images/pickup-truck.png")',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                borderRadius: '40% 60% 55% 45%',
-                boxShadow: '0 16px 38px rgba(15,23,42,0.6)',
+                borderRadius: '42% 58% 55% 45%',
+                boxShadow: '0 16px 40px rgba(15,23,42,0.45)',
+                opacity: 0.98,
+                zIndex: 1,
               }}
             />
 
+            {/* コンテンツ本体 */}
             <div
               style={{
                 position: 'relative',
@@ -421,318 +917,176 @@ export default function Page() {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
+                zIndex: 2,
               }}
             >
-              <div>
+              {/* タイトル */}
+              <header
+                style={{
+                  marginBottom: 20,
+                  textAlign: 'left',
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 16,
+                    letterSpacing: '0.01em',
+                    textTransform: 'uppercase',
+                    color: '#6B7280',
+                    marginBottom: -4,
+                  }}
+                >
+                  ご連絡について
+                </div>
                 <h2
                   style={{
                     margin: 0,
-                    fontSize: 20,
+                    fontSize: 32,
+                    letterSpacing: '0.01em',
                     fontWeight: 700,
                     color: '#0f172a',
+                    fontFamily: 'Georgia, "Times New Roman", "游明朝", "Yu Mincho", serif',
                   }}
                 >
-                  Schedule (tentative)
+                  CONTACT
                 </h2>
-                <p
-                  style={{
-                    marginTop: 8,
-                    fontSize: 12,
-                    color: '#6b7280',
-                  }}
-                >
-                  時間や内容は、今後調整する可能性があります。
-                </p>
+              </header>
 
-                {/* 中央にタイムライン */}
+              {/* ガラスカード：LINE で送ってもらう案内 */}
+              <div
+                style={{
+                  marginTop: 90, // ← ここをしっかり下げた！（12 → 70）
+                  padding: '22px 20px 26px',
+                  borderRadius: 28,
+                  background: 'rgba(255, 255, 255, 0.26)',
+                  backdropFilter: 'blur(18px)',
+                  WebkitBackdropFilter: 'blur(18px)',
+                  border: '1px solid rgba(255,255,255,0.45)',
+                  boxShadow: '0 6px 30px rgba(0,0,0,0.18)',
+                  minHeight: 260,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 16,
+                }}
+              >
                 <div
                   style={{
-                    marginTop: 20,
+                    fontSize: 13,
+                    color: '#4b5563',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  準備のため、下記の内容をお知らせ下さい。
+                </div>
+
+                <ul
+                  style={{
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 10,
+                    fontSize: 15,
+                    color: '#111827',
+                  }}
+                >
+                  <li>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        fontSize: 13,
+                        color: '#6b7280',
+                        marginBottom: 6,
+                      }}
+                    >
+                      1. アレルギー・苦手なもの
+                    </span>
+                    <div>
+                      食べられない食材やお酒のNGなどがあれば
+                      <br />
+                      教えてください。
+                    </div>
+                  </li>
+                  <li>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        fontSize: 13,
+                        color: '#6b7280',
+                        marginBottom: 6,
+                      }}
+                    >
+                      2. 当日のご要望
+                    </span>
+                    <div>
+                      ペースや体調面での配慮、
+                      <br />
+                      こうしてほしい等があればぜひ。
+                    </div>
+                  </li>
+                  <li>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        fontSize: 13,
+                        color: '#6b7280',
+                        marginBottom: 6,
+                      }}
+                    >
+                      3. 質問・確認したいこと
+                    </span>
+                    <div>
+                      服装・持ち物・その他気になることがあれば、
+                      <br />
+                      お気軽にどうぞ。
+                    </div>
+                  </li>
+                </ul>
+
+                {/* LINE へのリンク（URLはあとで差し替え） */}
+                <div
+                  style={{
+                    marginTop: 10,
                     display: 'flex',
                     justifyContent: 'center',
                   }}
                 >
-                  <div
+                  <a
+                    href="https://line.me/ti/p/58rr3fs6Mp" // TODO: ここを実際のLINEアカウントURLに変更
                     style={{
-                      position: 'relative',
-                      paddingLeft: 18,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '10px 18px',
+                      borderRadius: 999,
+                      border: '1px solid rgba(15,23,42,0.12)',
+                      background: 'rgba(255,255,255,0.9)',
+                      fontSize: 14,
+                      fontWeight: 600,
+                      color: '#111827',
+                      textDecoration: 'none',
+                      boxShadow: '0 4px 14px rgba(148,163,184,0.6)',
                     }}
                   >
-                    {/* 縦ライン（少し曲線風にグラデーション） */}
-                    <div
-                      style={{
-                        position: 'absolute',
-                        left: 6,
-                        top: 0,
-                        bottom: 0,
-                        width: 2,
-                        background: 'linear-gradient(180deg, #C1E6EB, #F4C4CF)',
-                        borderRadius: 999,
-                      }}
-                    />
-                    {[
-                      {
-                        time: '13:00 ごろ',
-                        text: '角南宅周辺に集合（順番にお迎え）',
-                      },
-                      {
-                        time: '16:00 ごろ',
-                        text: '明石エリアの会場へ移動',
-                      },
-                      {
-                        time: '20:30 ごろ',
-                        text: '解散（その場の雰囲気で前後する可能性あり）',
-                      },
-                    ].map((item, index) => (
-                      <div
-                        key={item.time}
-                        style={{
-                          display: 'flex',
-                          marginBottom: index === 2 ? 0 : 14,
-                        }}
-                      >
-                        {/* ドット */}
-                        <div
-                          style={{
-                            width: 12,
-                            height: 12,
-                            marginTop: 2,
-                            marginRight: 8,
-                            borderRadius: '50%',
-                            background: 'linear-gradient(135deg, #C1E6EB, #F4C4CF)',
-                            boxShadow:
-                              '0 0 0 4px rgba(255,255,255,0.9), 0 6px 14px rgba(15,23,42,0.35)',
-                          }}
-                        />
-                        <div>
-                          <div
-                            style={{
-                              fontSize: 13,
-                              fontWeight: 600,
-                              color: '#111827',
-                            }}
-                          >
-                            {item.time}
-                          </div>
-                          <div
-                            style={{
-                              marginTop: 2,
-                              fontSize: 13,
-                              color: '#4b5563',
-                            }}
-                          >
-                            {item.text}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                    LINEで送る
+                  </a>
+                </div>
+
+                <div
+                  style={{
+                    marginTop: 4,
+                    fontSize: 11,
+                    color: '#6b7280',
+                    textAlign: 'center',
+                  }}
+                >
+                  ※ うまく開かない場合は、水間のLINEに直接ご連絡ください。
                 </div>
               </div>
-            </div>
-          </section>
 
-          {/* 4. ひとこと・時間フォーム */}
-          <section
-            style={{
-              width: '100vw',
-              height: '100vh',
-              padding: '72px 20px 96px',
-              boxSizing: 'border-box',
-              position: 'relative',
-            }}
-          >
-            {/* 背景にカップル＆ホテルをブロブで重ねる */}
-            <div
-              style={{
-                position: 'absolute',
-                top: '8%',
-                right: '-14%',
-                width: 220,
-                height: 200,
-                backgroundImage: 'url("/images/couple-mirror.png")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '50% 60% 40% 60%',
-                opacity: 0.95,
-                boxShadow: '0 16px 34px rgba(15,23,42,0.55)',
-              }}
-            />
-            <div
-              style={{
-                position: 'absolute',
-                left: '-18%',
-                bottom: '10%',
-                width: 230,
-                height: 180,
-                backgroundImage: 'url("/images/hotel-lobby.png")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '60% 40% 55% 45%',
-                opacity: 0.8,
-                filter: 'brightness(0.98)',
-              }}
-            />
-
-            <div
-              style={{
-                position: 'relative',
-                maxWidth: 420,
-                margin: '0 auto',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-              }}
-            >
-              <div
-                style={{
-                  background: 'rgba(255,255,255,0.95)',
-                  borderRadius: 22,
-                  padding: '16px 16px 14px',
-                  boxShadow: '0 14px 32px rgba(148,163,184,0.75)',
-                }}
-              >
-                <h2
-                  style={{
-                    margin: 0,
-                    fontSize: 20,
-                    fontWeight: 700,
-                    color: '#0f172a',
-                  }}
-                >
-                  Your Message
-                </h2>
-                <p
-                  style={{
-                    marginTop: 10,
-                    fontSize: 13,
-                    lineHeight: 1.8,
-                    color: '#4b5563',
-                  }}
-                >
-                  大まかな集合時間と、アレルギーやひとことがあれば教えてください。
-                  <br />
-                  ざっくりで大丈夫です。
-                </p>
-
-                <form
-                  onSubmit={handleSubmit}
-                  style={{
-                    marginTop: 12,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 10,
-                    textAlign: 'left',
-                  }}
-                >
-                  <label
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 4,
-                      fontSize: 13,
-                      color: '#111827',
-                    }}
-                  >
-                    <span>お迎え希望時間帯</span>
-                    <select
-                      name="pickupTime"
-                      required
-                      defaultValue=""
-                      style={{
-                        font: 'inherit',
-                        padding: '9px 11px',
-                        borderRadius: 10,
-                        border: '1px solid rgba(148,163,184,0.9)',
-                        background: '#F9FAFB',
-                        color: '#111827',
-                      }}
-                    >
-                      <option value="" disabled>
-                        選択してください
-                      </option>
-                      {PICKUP_TIME_OPTIONS.map((time) => (
-                        <option key={time} value={time}>
-                          {time}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-
-                  <label
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 4,
-                      fontSize: 13,
-                      color: '#111827',
-                    }}
-                  >
-                    <span>ひとこと・アレルギーなどあれば</span>
-                    <textarea
-                      name="message"
-                      rows={3}
-                      placeholder="アレルギーや、当日の希望などあれば自由に書いてください。"
-                      style={{
-                        font: 'inherit',
-                        padding: '9px 11px',
-                        borderRadius: 10,
-                        border: '1px solid rgba(148,163,184,0.9)',
-                        background: '#F9FAFB',
-                        color: '#111827',
-                        resize: 'vertical',
-                      }}
-                    />
-                  </label>
-
-                  <button
-                    type="submit"
-                    disabled={isSending}
-                    style={{
-                      marginTop: 6,
-                      padding: 10,
-                      borderRadius: 999,
-                      border: 'none',
-                      background: 'linear-gradient(135deg, #C1E6EB, #F4C4CF)',
-                      color: '#111827',
-                      fontWeight: 600,
-                      fontSize: 14,
-                      cursor: isSending ? 'default' : 'pointer',
-                      transition: 'transform 0.08s ease, box-shadow 0.08s ease, opacity 0.1s ease',
-                      boxShadow: isSending ? 'none' : '0 8px 20px rgba(148,163,184,0.7)',
-                      opacity: isSending ? 0.7 : 1,
-                    }}
-                  >
-                    {isSending ? '送信中…' : '送信する'}
-                  </button>
-
-                  {isSent && (
-                    <p
-                      style={{
-                        marginTop: 4,
-                        fontSize: 12,
-                        color: '#166534',
-                        textAlign: 'center',
-                      }}
-                    >
-                      入力ありがとうございました。いただいた内容をもとに、当日の段取りを整えます。
-                    </p>
-                  )}
-                  {error && (
-                    <p
-                      style={{
-                        marginTop: 4,
-                        fontSize: 12,
-                        color: '#B91C1C',
-                        textAlign: 'center',
-                      }}
-                    >
-                      {error}
-                    </p>
-                  )}
-                </form>
-              </div>
+              {/* 下の余白（ナビとの距離） */}
+              <div style={{ height: 20 }} />
             </div>
           </section>
         </div>
@@ -794,7 +1148,7 @@ export default function Page() {
           textAlign: 'center',
         }}
       >
-        角南夫妻お祝い実行委員会
+        角南夫妻大スーパーお祝い実行委員会
       </footer>
     </main>
   );
